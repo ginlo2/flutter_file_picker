@@ -27,13 +27,27 @@ apply plugin: 'com.android.library'
 apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
-    compileSdk 34
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.mr.flutter.plugin.filepicker' 
+    }
+
+    compileSdkVersion 35
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
 
     defaultConfig {
         minSdk 21
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'proguard-rules.pro'
     }
+
     lintOptions {
         disable 'InvalidPackage'
     }
@@ -44,13 +58,7 @@ android {
         implementation "androidx.lifecycle:lifecycle-runtime:2.8.7"
         implementation "org.apache.tika:tika-core:3.1.0"
     }
-    kotlinOptions {
-        jvmTarget = '17'
-    }
 
-    if (project.android.hasProperty("namespace")) {
-        namespace 'com.mr.flutter.plugin.filepicker' 
-    }
 }
 dependencies {
     implementation 'androidx.core:core-ktx:1.15.0'
